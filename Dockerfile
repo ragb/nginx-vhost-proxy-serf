@@ -26,5 +26,6 @@ RUN chmod 755 /*.sh
 RUN chmod 755 /*.py
 
 EXPOSE 80
+EXPOSE 7946
 
 CMD ["/run.sh"]

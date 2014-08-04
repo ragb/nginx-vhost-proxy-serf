@@ -23,7 +23,7 @@ for member in info['members']:
 	if "http_vhost" in member['tags']:
 		vhost = member['tags']['http_vhost']
 		port = member['tags'].get('http:port', 80)
-		hosts.append((vhost, ip, port,))
+		hosts.append((vhost.split(","), ip, port))
 print "%s\t%s\t%d" % (vhost, ip, port)
 
 if not hosts:
@@ -33,8 +33,8 @@ if not hosts:
 hosts = sorted(hosts, key=lambda k : k[0])
 
 nodes = []
-for vhost, members in itertools.groupby(hosts, lambda k : k[0]):
-	node = {'vhost' : vhost, 'members' : []}
+for vhosts, members in itertools.groupby(hosts, lambda k : k[0]):
+	node = {'vhosts' : vhosts, 'members' : []}
 	for member in members:
 		node['members'].append({'ip' : member[1], 'port' : member[2]})
 	nodes.append(node)

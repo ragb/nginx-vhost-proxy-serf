@@ -1,15 +1,15 @@
 {% for node in nodes %}
-upstream {{node.vhost}}_upstream {
+upstream {{node.vhosts[0]}}_upstream {
 {% for member in node.members %}
 	server {{member.ip}}:{{member.port}};
 {% endfor %}
 }
 
 server {
-	server_name {{node.vhost}};
+	server_name {{" ".join(node.vhosts)}};
 	listen 80;
-	access_log /var/log/nginx/{{node.vhost}}.access.log;
-	error_log /var/log/nginx/{{node.vhost}}.error.log;
+	access_log /var/log/nginx/{{node.vhosts[0]}}.access.log;
+	error_log /var/log/nginx/{{node.vhosts[0]}}.error.log;
 	location / {
 		include proxy_params;
 		proxy_pass http://{{node.vhost}}_upstream;
