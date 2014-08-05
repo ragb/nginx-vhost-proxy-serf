@@ -23,7 +23,7 @@ for member in info['members']:
 	if "http_vhost" in member['tags']:
 		vhost = member['tags']['http_vhost']
 		port = member['tags'].get('http:port', 80)
-		hosts.append((vhost.split(","), ip, port))
+		hosts.append((vhost.split("|"), ip, port))
 print "%s\t%s\t%d" % (vhost, ip, port)
 
 if not hosts:
