@@ -1,14 +1,5 @@
-FROM dockerfile/nginx
+FROM ragb/supervisor-serf-nginx
 WORKDIR /
-
-RUN apt-get install -qy supervisor
-ADD supervisord-nginx.conf /etc/supervisor/conf.d/supervisord-nginx.conf
-
-# Get serf
-ADD https://dl.bintray.com/mitchellh/serf/0.6.3_linux_amd64.zip /serf.zip
-RUN unzip /serf.zip
-RUN mv serf /usr/bin/serf
-RUN rm /serf.zip
 
 RUN apt-get install -qy python-pip
 RUN pip install jinja2
@@ -20,12 +11,6 @@ ADD templates /opt/templates
 
 ADD supervisord-serf.conf /etc/supervisor/conf.d/supervisord-serf.conf
 
-ADD run.sh /run.sh
-
 RUN chmod 755 /*.sh
 RUN chmod 755 /*.py
 
-EXPOSE 80
-EXPOSE 7946
-
-CMD ["/run.sh"]
