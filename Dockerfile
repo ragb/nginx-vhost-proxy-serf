@@ -14,3 +14,6 @@ ADD supervisord-serf.conf /etc/supervisor/conf.d/supervisord-serf.conf
 RUN chmod 755 /*.sh
 RUN chmod 755 /*.py
 
+EXPOSE 80
+EXPOSE 443
+EXPOSE 7946
